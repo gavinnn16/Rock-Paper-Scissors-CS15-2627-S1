@@ -1,33 +1,30 @@
 import random
 
-def get_cpu_choice():
-    cpu_choice = random.choice(["Rock", "Paper", "Scissors"])
-    return cpu_choice
-
 def get_player_choice():
     while True:
-        player_choice = input()
-        if player_choice in ["Rock", "Paper", "Scissors"]:
+        player_choice = input("Enter your choice (rock, paper, scissors): ")
+        if player_choice in ["rock", "paper", "scissors"]:
             return player_choice
-
+        else:
+            print("Invalid choice. Please try again.")
 def check_winner(cpu_choice, player_choice):
     if player_choice == cpu_choice:
         winner = "Tie"
-    elif cpu_choice == "Rock":
-        if player_choice == "Paper":
-            winner = "Player"
+    elif cpu_choice == "rock":
+        if player_choice == "paper":
+            winner = "PLAYER"
         else:
-            winner = "Cpu"
-    elif cpu_choice == "Paper":
-        if player_choice == "Scissors":
-            winner = "Player"
+            winner = "CPU"
+    elif cpu_choice == "scissors":
+        if player_choice == "rock":
+            winner = "PLAYER"
         else:
-            winner = "Cpu"
-    elif player_choice == "Scissors":
-        winner = "Cpu"
-    else:
-        winner = "Player"
-
+            winner = "CPU"
+    elif cpu_choice == "paper":
+            if player_choice == "scissors":
+                winner = "PLAYER"
+            else:
+                winner = "CPU"
     return winner
 
 def play_round():
@@ -36,21 +33,29 @@ def play_round():
     winner = check_winner(cpu_choice, player_choice)
     return winner
 
-player_win = 0
-cpu_win = 0
-tie = 0
 
-while player_win < 3 and cpu_win < 3:
+player_wins = 0
+cpu_wins = 0
+ties = 0
+
+while player_wins < 3 and cpu_wins <3:
     winner = play_round()
-    if winner == "Player":
-        player_win += 1
-    elif winner == "Cpu":
-        cpu_win += 1
-    else:
-        tie += 1
-    print("Player:", player_win, "CPU:", cpu_win, "Ties:", tie)
+    if winner == "Tie":
+        player_wins += 0
+        cpu_wins += 0
+        ties += 1
+    elif winner == "PLAYER":
+        player_wins += 1
+        cpu_wins += 0
+        ties += 0
+    elif winner == "CPU":
+        player_wins += 0
+        cpu_wins += 1
+        ties += 0
+    print(f"Score - Player: {player_wins}  CPU: {cpu_wins}  Ties: {ties}")
 
-if player_win == 3:
-    print("Player wins tournament")
+
+if player_wins == 3:
+    print("Congratulations! You won the tournament!")
 else:
-    print("Cpu wins tournament")
+    print("WOMP WOMP CPU won, better luck next time bucko!")
